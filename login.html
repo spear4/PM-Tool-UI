@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> PM | Login </title>
+    <link rel="stylesheet" href="login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <form action="" id="myForm">
+        <div class="title">Login</div>
+        <div class="input-box underline">
+        	<input type="text" placeholder="Enter Your Email" id="userName" required>
+          	<div class="underline"></div>
+			  <p style="color:red;font-size:12px;display:none;" id="emailEmpty">! Email cannot be empty</p>
+          	<p style="color:red;font-size:12px;display:none;" id="emailNotValid">! Please provide valid email</p>
+        </div>
+        <div class="input-box" style="margin-top:20px; position:relative">
+          <input type="password" placeholder="Enter Your Password" id="passWord" required>
+          	<i class="fa fa-eye" id="togglePassword" style="color:#c42626; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+          	<!-- <i class="fa fa-eye" aria-hidden="true" id="togglePassword"></i> -->
+          <div class="underline"></div>
+          	<p style="color:red;font-size:12px;display:none;" id="passEmpty">! Password cannot be empty</p>
+          	<p style="color:red;font-size:12px;display:none;" id="passShort">! Password must contain 8 or more characters</p>
+        </div>
+        <div class="input-box button" style="margin-top: 40px;">
+          <button type="button" name="" id="login" class="contbut">Continue</button>
+        </div>
+      </form>
+        <div class="option">New User !<a href="signup.html"> Sign Up Here </a></div>
+    </div>
+    	
+    <script>
+    	
+    $(document).ready( ()=>{
+    		
+    		var emailCheck = 0;
+    		
+    		/* Validate User Email */
+        	// <!---Start--->
+    		$('#userName').on('keyup', ()=>{
+    			
+    			var userName = $('#userName').val();
+    			var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    			
+    	        if (!emailRegex.test(userName) || userName == ""){
+    	        	
+    	        	$("#emailNotValid").show();
+        	        
+    	        }else{
+    	        	
+    	        	emailCheck = 1;
+    	        	$("#emailNotValid").hide();
+    	        	/* alert("Valid Email"); */	        	
+    	        }
+    			
+    		});
+        	// <!---End--->
+        	
+        	//pass prompt hiding
+        	$('#passWord').on('keyup', ()=>{
+            	$("#passEmpty").hide();
+            });
+
+        	//Email prompt hiding
+        	$('#userName').on('keyup', ()=>{
+            	$("#emailEmpty").hide();
+            });
+        	
+        	//password view and hide
+    		// <!---Start--->
+    	    // Toggle password visibility for Enter Password field
+  			$("#togglePassword").on("click", function () {
+    			const passField = $("#passWord");
+    			const type = passField.attr("type") === "password" ? "text" : "password";
+    			passField.attr("type", type);
+    			$(this).toggleClass("fa-eye fa-eye-slash"); // Toggle icon
+  				});
+    	 	// <!---End--->
+        	
+        	//submit the credentials	
+        	$('#login').on('click', ()=>{
+        		
+        		var user = $('#userName').val();
+            	var pass = $('#passWord').val();
+            	
+        		// console.log(user + "__" + pass);
+        		
+        		if(user != ""){
+        			if(pass != ""){
+            			//console.log(user + " " + pass);
+						if(pass.length >= 8){
+							
+    						$("#passShort").hide();
+							
+							if(user == "rehmat@gmail.com"){
+								
+								if(pass == "Rehmat@1001"){
+
+									alert("welcome to PM Tool");
+									window.location.href = "product.html";
+
+								}else{
+									alert("Password Not Matching");
+								}
+
+							}else{
+								alert("You are not registered with us");
+							}
+
+						}else{
+    						$("#passShort").show();
+						}        				
+        			}else{
+        				$("#passEmpty").show();
+        			}
+        			
+        		}else{
+					$("#emailEmpty").show();
+        		}
+        		
+        	});
+    		
+    		
+    		
+    	});
+    
+    
+    </script>
+    
+    
+  </body>
+</html>
